@@ -1,0 +1,85 @@
+body{
+    font-family: 'Questrial', sans-serif;
+    font-size: 12.3px;
+    letter-spacing: .7px;
+  }
+  aside{
+    float:left;
+    width: 15%;
+        background: #424242;
+  }
+  aside nav ul{
+    padding:0;
+    margin:0;
+    list-style:none;
+  }
+  aside nav ul li a{
+    display: block;
+    padding: 15px 10px;
+    color:white;
+    background: rgb(52,52,52);
+    transition: .3s;
+  }
+  aside nav ul li a:hover{
+    text-decoration: none;
+    color:white;
+  }
+  aside nav ul li ul li a{
+    display: block; 
+    padding:10px 30px;
+    background: #424242;
+    transition: .3s;
+  }
+  aside nav ul li ul li a:hover{
+    color:#8BC34A;
+  }
+  aside nav ul li img{
+    width: 20px;
+    margin-right: 5px;
+  }
+  main{
+    float:left;
+    width: 85%;
+  }
+  .table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th {
+    border-top: 0;
+    background: #343434;
+    border-bottom: 0;
+    padding: 15px 10px;
+    color: white;
+    font-weight: normal;
+    text-align: center;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #dddddd75;
+    padding: 10px;
+}
+  @media (max-width: 1300px) {
+    aside{
+      width:20%;
+    }
+    main{
+      width:80%;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    aside{
+      width:25%;
+    }
+    main{
+      width:75%;
+    }
+  }
+
+  @media (max-width: 767px) {
+    aside{
+      width:100%;
+    }
+    main{
+      width:100%;
+    }
+  }
