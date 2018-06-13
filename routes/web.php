@@ -12,3 +12,6 @@
 */
 
 Route::get('/', 'UsuariosController@index');
+Route::get('/usuarios', 'UsuariosController@index');
+Route::put('/usuarios/eliminar', 'UsuariosController@destroy');
+Route::post('/usuarios/crear','UsuariosController@create');

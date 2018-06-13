@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2018 a las 15:28:36
--- Versión del servidor: 10.1.32-MariaDB
--- Versión de PHP: 7.2.5
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 13-06-2018 a las 01:30:27
+-- Versión del servidor: 5.7.19
+-- Versión de PHP: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,13 +28,15 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `categorias`
 --
 
-CREATE TABLE `categorias` (
-  `id_cat_prod` int(11) NOT NULL,
+DROP TABLE IF EXISTS `categorias`;
+CREATE TABLE IF NOT EXISTS `categorias` (
+  `id_cat_prod` int(11) NOT NULL AUTO_INCREMENT,
   `categoria` varchar(45) NOT NULL,
   `orden` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id_cat_prod`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `categorias`
@@ -52,21 +54,24 @@ INSERT INTO `categorias` (`id_cat_prod`, `categoria`, `orden`, `created_at`, `up
 -- Estructura de tabla para la tabla `distritos`
 --
 
-CREATE TABLE `distritos` (
+DROP TABLE IF EXISTS `distritos`;
+CREATE TABLE IF NOT EXISTS `distritos` (
   `id_distrito` char(6) NOT NULL DEFAULT '',
   `name` varchar(50) NOT NULL DEFAULT '',
-  `province_id` char(6) DEFAULT NULL,
-  `region_id` char(6) NOT NULL DEFAULT '',
+  `id_provincia` char(6) DEFAULT NULL,
+  `id_region` char(6) NOT NULL DEFAULT '',
   `estado` int(11) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id_distrito`),
+  UNIQUE KEY `id` (`id_distrito`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `distritos`
 --
 
-INSERT INTO `distritos` (`id_distrito`, `name`, `province_id`, `region_id`, `estado`, `created_at`, `updated_at`) VALUES
+INSERT INTO `distritos` (`id_distrito`, `name`, `id_provincia`, `id_region`, `estado`, `created_at`, `updated_at`) VALUES
 ('010101', 'Chachapoyas', '010100', '010000', 1, NULL, NULL),
 ('010102', 'Asunción', '010100', '010000', 1, NULL, NULL),
 ('010103', 'Balsas', '010100', '010000', 1, NULL, NULL),
@@ -927,7 +932,7 @@ INSERT INTO `distritos` (`id_distrito`, `name`, `province_id`, `region_id`, `est
 ('090411', 'Santa Ana', '090400', '090000', 1, NULL, NULL),
 ('090412', 'Tantara', '090400', '090000', 1, NULL, NULL),
 ('090413', 'Ticrapo', '090400', '090000', 1, NULL, NULL);
-INSERT INTO `distritos` (`id_distrito`, `name`, `province_id`, `region_id`, `estado`, `created_at`, `updated_at`) VALUES
+INSERT INTO `distritos` (`id_distrito`, `name`, `id_provincia`, `id_region`, `estado`, `created_at`, `updated_at`) VALUES
 ('090501', 'Churcampa', '090500', '090000', 1, NULL, NULL),
 ('090502', 'Anco', '090500', '090000', 1, NULL, NULL),
 ('090503', 'Chinchihuasi', '090500', '090000', 1, NULL, NULL),
@@ -1348,49 +1353,49 @@ INSERT INTO `distritos` (`id_distrito`, `name`, `province_id`, `region_id`, `est
 ('140310', 'Salas', '140300', '140000', 1, NULL, NULL),
 ('140311', 'San José', '140300', '140000', 1, NULL, NULL),
 ('140312', 'Tucume', '140300', '140000', 1, NULL, NULL),
-('150101', 'Lima', '150100', '150000', 0, NULL, NULL),
-('150102', 'Ancón', '150100', '150000', 0, NULL, NULL),
-('150103', 'Ate', '150100', '150000', 0, NULL, NULL),
-('150104', 'Barranco', '150100', '150000', 0, NULL, NULL),
-('150105', 'Breña', '150100', '150000', 0, NULL, NULL),
-('150106', 'Carabayllo', '150100', '150000', 0, NULL, NULL),
-('150107', 'Chaclacayo', '150100', '150000', 0, NULL, NULL),
-('150108', 'Chorrillos', '150100', '150000', 0, NULL, NULL),
-('150109', 'Cieneguilla', '150100', '150000', 0, NULL, NULL),
-('150110', 'Comas', '150100', '150000', 0, NULL, NULL),
-('150111', 'El Agustino', '150100', '150000', 0, NULL, NULL),
-('150112', 'Independencia', '150100', '150000', 0, NULL, NULL),
-('150113', 'Jesús María', '150100', '150000', 0, NULL, NULL),
-('150114', 'La Molina', '150100', '150000', 0, NULL, NULL),
-('150115', 'La Victoria', '150100', '150000', 0, NULL, NULL),
-('150116', 'Lince', '150100', '150000', 0, NULL, NULL),
-('150117', 'Los Olivos', '150100', '150000', 0, NULL, NULL),
-('150118', 'Lurigancho', '150100', '150000', 0, NULL, NULL),
-('150119', 'Lurin', '150100', '150000', 0, NULL, NULL),
+('150101', 'Lima', '150100', '150000', 1, NULL, NULL),
+('150102', 'Ancón', '150100', '150000', 1, NULL, NULL),
+('150103', 'Ate', '150100', '150000', 1, NULL, NULL),
+('150104', 'Barranco', '150100', '150000', 1, NULL, NULL),
+('150105', 'Breña', '150100', '150000', 1, NULL, NULL),
+('150106', 'Carabayllo', '150100', '150000', 1, NULL, NULL),
+('150107', 'Chaclacayo', '150100', '150000', 1, NULL, NULL),
+('150108', 'Chorrillos', '150100', '150000', 1, NULL, NULL),
+('150109', 'Cieneguilla', '150100', '150000', 1, NULL, NULL),
+('150110', 'Comas', '150100', '150000', 1, NULL, NULL),
+('150111', 'El Agustino', '150100', '150000', 1, NULL, NULL),
+('150112', 'Independencia', '150100', '150000', 1, NULL, NULL),
+('150113', 'Jesús María', '150100', '150000', 1, NULL, NULL),
+('150114', 'La Molina', '150100', '150000', 1, NULL, NULL),
+('150115', 'La Victoria', '150100', '150000', 1, NULL, NULL),
+('150116', 'Lince', '150100', '150000', 1, NULL, NULL),
+('150117', 'Los Olivos', '150100', '150000', 1, NULL, NULL),
+('150118', 'Lurigancho', '150100', '150000', 1, NULL, NULL),
+('150119', 'Lurin', '150100', '150000', 1, NULL, NULL),
 ('150120', 'Magdalena del Mar', '150100', '150000', 0, NULL, NULL),
-('150121', 'Pueblo Libre', '150100', '150000', 0, NULL, NULL),
-('150122', 'Miraflores', '150100', '150000', 0, NULL, NULL),
-('150123', 'Pachacamac', '150100', '150000', 0, NULL, NULL),
-('150124', 'Pucusana', '150100', '150000', 0, NULL, NULL),
-('150125', 'Puente Piedra', '150100', '150000', 0, NULL, NULL),
-('150126', 'Punta Hermosa', '150100', '150000', 0, NULL, NULL),
-('150127', 'Punta Negra', '150100', '150000', 0, NULL, NULL),
-('150128', 'Rímac', '150100', '150000', 0, NULL, NULL),
-('150129', 'San Bartolo', '150100', '150000', 0, NULL, NULL),
-('150130', 'San Borja', '150100', '150000', 0, NULL, NULL),
+('150121', 'Pueblo Libre', '150100', '150000', 1, NULL, NULL),
+('150122', 'Miraflores', '150100', '150000', 1, NULL, NULL),
+('150123', 'Pachacamac', '150100', '150000', 1, NULL, NULL),
+('150124', 'Pucusana', '150100', '150000', 1, NULL, NULL),
+('150125', 'Puente Piedra', '150100', '150000', 1, NULL, NULL),
+('150126', 'Punta Hermosa', '150100', '150000', 1, NULL, NULL),
+('150127', 'Punta Negra', '150100', '150000', 1, NULL, NULL),
+('150128', 'Rímac', '150100', '150000', 1, NULL, NULL),
+('150129', 'San Bartolo', '150100', '150000', 1, NULL, NULL),
+('150130', 'San Borja', '150100', '150000', 1, NULL, NULL),
 ('150131', 'San Isidro', '150100', '150000', 0, NULL, NULL),
-('150132', 'San Juan de Lurigancho', '150100', '150000', 0, NULL, NULL),
-('150133', 'San Juan de Miraflores', '150100', '150000', 0, NULL, NULL),
-('150134', 'San Luis', '150100', '150000', 0, NULL, NULL),
-('150135', 'San Martín de Porres', '150100', '150000', 0, NULL, NULL),
+('150132', 'San Juan de Lurigancho', '150100', '150000', 1, NULL, NULL),
+('150133', 'San Juan de Miraflores', '150100', '150000', 1, NULL, NULL),
+('150134', 'San Luis', '150100', '150000', 1, NULL, NULL),
+('150135', 'San Martín de Porres', '150100', '150000', 1, NULL, NULL),
 ('150136', 'San Miguel', '150100', '150000', 0, NULL, NULL),
-('150137', 'Santa Anita', '150100', '150000', 0, NULL, NULL),
-('150138', 'Santa María del Mar', '150100', '150000', 0, NULL, NULL),
-('150139', 'Santa Rosa', '150100', '150000', 0, NULL, NULL),
-('150140', 'Santiago de Surco', '150100', '150000', 0, NULL, NULL),
-('150141', 'Surquillo', '150100', '150000', 0, NULL, NULL),
-('150142', 'Villa El Salvador', '150100', '150000', 0, NULL, NULL),
-('150143', 'Villa María del Triunfo', '150100', '150000', 0, NULL, NULL),
+('150137', 'Santa Anita', '150100', '150000', 1, NULL, NULL),
+('150138', 'Santa María del Mar', '150100', '150000', 1, NULL, NULL),
+('150139', 'Santa Rosa', '150100', '150000', 1, NULL, NULL),
+('150140', 'Santiago de Surco', '150100', '150000', 1, NULL, NULL),
+('150141', 'Surquillo', '150100', '150000', 1, NULL, NULL),
+('150142', 'Villa El Salvador', '150100', '150000', 1, NULL, NULL),
+('150143', 'Villa María del Triunfo', '150100', '150000', 1, NULL, NULL),
 ('150201', 'Barranca', '150200', '150000', 0, NULL, NULL),
 ('150202', 'Paramonga', '150200', '150000', 0, NULL, NULL),
 ('150203', 'Pativilca', '150200', '150000', 0, NULL, NULL),
@@ -1780,7 +1785,7 @@ INSERT INTO `distritos` (`id_distrito`, `name`, `province_id`, `region_id`, `est
 ('210902', 'Conima', '210900', '210000', 1, NULL, NULL),
 ('210903', 'Huayrapata', '210900', '210000', 1, NULL, NULL),
 ('210904', 'Tilali', '210900', '210000', 1, NULL, NULL);
-INSERT INTO `distritos` (`id_distrito`, `name`, `province_id`, `region_id`, `estado`, `created_at`, `updated_at`) VALUES
+INSERT INTO `distritos` (`id_distrito`, `name`, `id_provincia`, `id_region`, `estado`, `created_at`, `updated_at`) VALUES
 ('211001', 'Putina', '211000', '210000', 1, NULL, NULL),
 ('211002', 'Ananea', '211000', '210000', 1, NULL, NULL),
 ('211003', 'Pedro Vilca Apaza', '211000', '210000', 1, NULL, NULL),
@@ -1950,12 +1955,14 @@ INSERT INTO `distritos` (`id_distrito`, `name`, `province_id`, `region_id`, `est
 -- Estructura de tabla para la tabla `marcas`
 --
 
-CREATE TABLE `marcas` (
-  `id_marca` int(11) NOT NULL,
+DROP TABLE IF EXISTS `marcas`;
+CREATE TABLE IF NOT EXISTS `marcas` (
+  `id_marca` int(11) NOT NULL AUTO_INCREMENT,
   `marca` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id_marca`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `marcas`
@@ -1971,8 +1978,9 @@ INSERT INTO `marcas` (`id_marca`, `marca`, `created_at`, `updated_at`) VALUES
 -- Estructura de tabla para la tabla `productos`
 --
 
-CREATE TABLE `productos` (
-  `id_producto` int(11) NOT NULL,
+DROP TABLE IF EXISTS `productos`;
+CREATE TABLE IF NOT EXISTS `productos` (
+  `id_producto` int(11) NOT NULL AUTO_INCREMENT,
   `nom_prod` varchar(100) NOT NULL,
   `img_prod` varchar(100) DEFAULT NULL,
   `des_corta` text,
@@ -1987,8 +1995,10 @@ CREATE TABLE `productos` (
   `id_cat_prod` int(11) NOT NULL,
   `id_marca` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id_producto`),
+  KEY `id_marca` (`id_marca`)
+) ENGINE=MyISAM AUTO_INCREMENT=125 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `productos`
@@ -2103,20 +2113,23 @@ INSERT INTO `productos` (`id_producto`, `nom_prod`, `img_prod`, `des_corta`, `de
 -- Estructura de tabla para la tabla `provincias`
 --
 
-CREATE TABLE `provincias` (
+DROP TABLE IF EXISTS `provincias`;
+CREATE TABLE IF NOT EXISTS `provincias` (
   `id_provincia` char(6) NOT NULL DEFAULT '',
   `name` varchar(50) NOT NULL DEFAULT '',
-  `region_id` char(6) NOT NULL DEFAULT '',
+  `id_region` char(6) NOT NULL DEFAULT '',
   `estado` int(11) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id_provincia`),
+  UNIQUE KEY `id` (`id_provincia`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `provincias`
 --
 
-INSERT INTO `provincias` (`id_provincia`, `name`, `region_id`, `estado`, `created_at`, `updated_at`) VALUES
+INSERT INTO `provincias` (`id_provincia`, `name`, `id_region`, `estado`, `created_at`, `updated_at`) VALUES
 ('010100', 'Chachapoyas', '010000', 1, NULL, NULL),
 ('010200', 'Bagua', '010000', 1, NULL, NULL),
 ('010300', 'Bongará', '010000', 1, NULL, NULL),
@@ -2245,7 +2258,7 @@ INSERT INTO `provincias` (`id_provincia`, `name`, `region_id`, `estado`, `create
 ('140200', 'Ferreñafe ', '140000', 1, NULL, NULL),
 ('140300', 'Lambayeque ', '140000', 1, NULL, NULL),
 ('150100', 'Lima ', '150000', 0, NULL, NULL),
-('150200', 'Barranca ', '150000', 1, NULL, NULL),
+('150200', 'Barranca ', '150000', 0, NULL, NULL),
 ('150300', 'Cajatambo ', '150000', 1, NULL, NULL),
 ('150400', 'Canta ', '150000', 1, NULL, NULL),
 ('150500', 'Cañete ', '150000', 1, NULL, NULL),
@@ -2320,12 +2333,15 @@ INSERT INTO `provincias` (`id_provincia`, `name`, `region_id`, `estado`, `create
 -- Estructura de tabla para la tabla `regiones`
 --
 
-CREATE TABLE `regiones` (
+DROP TABLE IF EXISTS `regiones`;
+CREATE TABLE IF NOT EXISTS `regiones` (
   `id_region` char(6) NOT NULL DEFAULT '',
   `name` varchar(50) NOT NULL DEFAULT '',
   `estado` int(11) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_region`),
+  UNIQUE KEY `id` (`id_region`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -2333,31 +2349,31 @@ CREATE TABLE `regiones` (
 --
 
 INSERT INTO `regiones` (`id_region`, `name`, `estado`, `created_at`, `updated_at`) VALUES
-('010000', 'Amazonas', 1, NULL, NULL),
-('020000', 'Áncash', 1, NULL, NULL),
-('030000', 'Apurímac', 1, NULL, NULL),
-('040000', 'Arequipa', 1, NULL, NULL),
-('050000', 'Ayacucho', 1, NULL, NULL),
-('060000', 'Cajamarca', 1, NULL, NULL),
-('070000', 'Callao', 1, NULL, NULL),
-('080000', 'Cusco', 1, NULL, NULL),
-('090000', 'Huancavelica', 1, NULL, NULL),
-('100000', 'Huánuco', 1, NULL, NULL),
-('110000', 'Ica', 1, NULL, NULL),
-('120000', 'Junín', 1, NULL, NULL),
-('130000', 'La Libertad', 1, NULL, NULL),
-('140000', 'Lambayeque', 1, NULL, NULL),
-('150000', 'Lima', 0, NULL, NULL),
-('160000', 'Loreto', 1, NULL, NULL),
-('170000', 'Madre de Dios', 1, NULL, NULL),
-('180000', 'Moquegua', 1, NULL, NULL),
-('190000', 'Pasco', 1, NULL, NULL),
-('200000', 'Piura', 1, NULL, NULL),
-('210000', 'Puno', 1, NULL, NULL),
-('220000', 'San Martín', 1, NULL, NULL),
-('230000', 'Tacna', 1, NULL, NULL),
-('240000', 'Tumbes', 1, NULL, NULL),
-('250000', 'Ucayali', 1, NULL, NULL);
+('010000', 'Amazonas', 1, NULL, '2018-06-12 23:21:05'),
+('020000', 'Áncash', 1, NULL, '2018-06-12 23:21:05'),
+('030000', 'Apurímac', 1, NULL, '2018-06-12 23:21:05'),
+('040000', 'Arequipa', 1, NULL, '2018-06-12 23:21:05'),
+('050000', 'Ayacucho', 1, NULL, '2018-06-12 23:21:05'),
+('060000', 'Cajamarca', 1, NULL, '2018-06-12 23:21:05'),
+('070000', 'Callao', 1, NULL, '2018-06-12 23:21:05'),
+('080000', 'Cusco', 1, NULL, '2018-06-12 23:21:05'),
+('090000', 'Huancavelica', 1, NULL, '2018-06-12 23:21:05'),
+('100000', 'Huánuco', 1, NULL, '2018-06-12 23:21:05'),
+('110000', 'Ica', 1, NULL, '2018-06-12 23:21:05'),
+('120000', 'Junín', 1, NULL, '2018-06-12 23:21:05'),
+('130000', 'La Libertad', 1, NULL, '2018-06-12 23:21:05'),
+('140000', 'Lambayeque', 1, NULL, '2018-06-12 23:21:05'),
+('150000', 'Lima', 0, NULL, '2018-06-12 23:21:16'),
+('160000', 'Loreto', 1, NULL, '2018-06-12 23:21:05'),
+('170000', 'Madre de Dios', 1, NULL, '2018-06-12 23:21:05'),
+('180000', 'Moquegua', 1, NULL, '2018-06-12 23:21:05'),
+('190000', 'Pasco', 1, NULL, '2018-06-12 23:21:05'),
+('200000', 'Piura', 1, NULL, '2018-06-12 23:21:05'),
+('210000', 'Puno', 1, NULL, '2018-06-12 23:21:05'),
+('220000', 'San Martín', 1, NULL, '2018-06-12 23:21:05'),
+('230000', 'Tacna', 1, NULL, '2018-06-12 23:21:05'),
+('240000', 'Tumbes', 1, NULL, '2018-06-12 23:21:05'),
+('250000', 'Ucayali', 1, NULL, '2018-06-12 23:21:05');
 
 -- --------------------------------------------------------
 
@@ -2365,12 +2381,14 @@ INSERT INTO `regiones` (`id_region`, `name`, `estado`, `created_at`, `updated_at
 -- Estructura de tabla para la tabla `sexo`
 --
 
-CREATE TABLE `sexo` (
-  `id_sexo` int(11) NOT NULL,
+DROP TABLE IF EXISTS `sexo`;
+CREATE TABLE IF NOT EXISTS `sexo` (
+  `id_sexo` int(11) NOT NULL AUTO_INCREMENT,
   `sexo` varchar(45) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id_sexo`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `sexo`
@@ -2386,13 +2404,15 @@ INSERT INTO `sexo` (`id_sexo`, `sexo`, `created_at`, `updated_at`) VALUES
 -- Estructura de tabla para la tabla `tipo_documentos`
 --
 
-CREATE TABLE `tipo_documentos` (
-  `id_tipo_doc` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tipo_documentos`;
+CREATE TABLE IF NOT EXISTS `tipo_documentos` (
+  `id_tipo_doc` int(11) NOT NULL AUTO_INCREMENT,
   `nom_corto` varchar(100) NOT NULL,
   `nom_largo` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id_tipo_doc`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tipo_documentos`
@@ -2412,8 +2432,9 @@ INSERT INTO `tipo_documentos` (`id_tipo_doc`, `nom_corto`, `nom_largo`, `created
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-CREATE TABLE `usuarios` (
-  `id_usuario` int(11) NOT NULL,
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `nombres` varchar(45) DEFAULT NULL,
@@ -2428,218 +2449,119 @@ CREATE TABLE `usuarios` (
   `id_provincia` int(11) DEFAULT NULL,
   `id_distrito` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `estado` int(11) NOT NULL DEFAULT '0',
+  `deleted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_usuario`),
+  UNIQUE KEY `email` (`email`,`nro_documento`)
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `email`, `password`, `nombres`, `apellidos`, `id_sexo`, `id_documento`, `nro_documento`, `celular`, `telefono`, `fec_nac`, `id_region`, `id_provincia`, `id_distrito`, `created_at`, `updated_at`) VALUES
-(1, 'commodo.at@ametnulla.net', 'WRD79JEB4ZR', 'Isaiah', 'Oneil', 1, 1, '94318859', '+51-663-123-676', '+51-899-9949', '2017-12-09', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(2, 'et.commodo@Suspendisse.co.uk', 'GSY66CCO0WY', 'Duncan', 'Anderson', 2, 5, '53594836', '+51-499-933-087', '+51-985-4657', '2018-05-02', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(3, 'Vestibulum.ante@turpisnonenim.com', 'RTZ12MHM4SB', 'Cassandra', 'Whitehead', 1, 6, '93623908', '+51-106-673-008', '+51-541-1938', '2018-12-01', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(4, 'nascetur.ridiculus@porttitor.ca', 'XAX57PHQ3FH', 'Giselle', 'Hyde', 1, 5, '48495508', '+51-057-568-778', '+51-176-7396', '2018-10-13', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(5, 'metus@egetnisidictum.org', 'OJH69JOZ4MR', 'Camden', 'Greer', 2, 4, '89784442', '+51-019-424-384', '+51-858-0708', '2019-02-23', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(6, 'elit.elit.fermentum@maurisaliquam.net', 'DBO25AZR0AI', 'Tamara', 'Prince', 1, 2, '89593996', '+51-980-072-688', '+51-337-6052', '2017-08-04', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(7, 'amet.ultricies.sem@mauriselit.co.uk', 'MCY92ISH2RQ', 'Armando', 'Madden', 2, 3, '91718919', '+51-352-832-344', '+51-490-4667', '2018-04-22', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(8, 'ipsum.Phasellus@Nuncsedorci.ca', 'NWX48OMA1JE', 'Jessamine', 'Francis', 1, 1, '90263529', '+51-924-910-781', '+51-220-3787', '2017-11-02', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(9, 'Nunc.commodo@malesuadaIntegerid.net', 'JOE60CLT0ID', 'Kelsey', 'Velasquez', 1, 6, '89793290', '+51-322-047-140', '+51-765-2452', '2017-08-29', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(10, 'Nulla@semperpretiumneque.org', 'LQV00OLA7SY', 'Dustin', 'Ewing', 2, 6, '64678970', '+51-990-884-817', '+51-080-3314', '2018-01-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(11, 'Vivamus.nibh@purusin.org', 'FUZ60OUT3YA', 'Shannon', 'Rollins', 2, 2, '46678148', '+51-418-980-954', '+51-460-5833', '2019-01-05', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(12, 'gravida.mauris@tincidunt.org', 'AVD27BMU8PB', 'Travis', 'Hamilton', 2, 2, '40761537', '+51-866-356-753', '+51-547-4695', '2018-02-04', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(13, 'nisi.sem@milorem.com', 'NRA43DND1UN', 'Elton', 'Woods', 1, 3, '72049399', '+51-507-786-514', '+51-799-4536', '2018-09-27', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(14, 'purus.mauris@egetipsumDonec.ca', 'CEZ95BWL3WQ', 'Kylan', 'Haley', 1, 2, '60024006', '+51-201-565-075', '+51-435-5044', '2019-01-18', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(15, 'vulputate@Donec.org', 'QHG45BBG8HP', 'Basil', 'Silva', 1, 2, '49361512', '+51-771-933-609', '+51-900-3546', '2017-06-23', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(16, 'ornare.lectus.ante@rutrum.ca', 'LCH91XHV0QY', 'Damon', 'Lancaster', 2, 5, '68913367', '+51-952-896-084', '+51-681-9740', '2018-10-05', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(17, 'vitae@a.co.uk', 'EUI39EWT1XT', 'Raya', 'Obrien', 1, 2, '71610345', '+51-941-498-564', '+51-314-4066', '2017-11-12', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(18, 'condimentum.Donec.at@vitaeodio.net', 'DZA05BOL8KH', 'Amir', 'Witt', 1, 1, '40792713', '+51-319-104-505', '+51-688-0176', '2018-03-08', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(19, 'ac@lacus.co.uk', 'FMH08ZCM6VG', 'Alexa', 'Golden', 2, 4, '51844119', '+51-017-152-423', '+51-612-3668', '2017-08-16', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(20, 'iaculis@porttitor.edu', 'SPB72LNV4PR', 'Kaye', 'Gray', 2, 5, '49224698', '+51-728-837-488', '+51-907-0540', '2018-09-03', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(21, 'pulvinar@vellectusCum.co.uk', 'VPO12PMA9HU', 'Sybil', 'Shaffer', 2, 2, '66576307', '+51-765-622-296', '+51-999-5976', '2019-06-28', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(22, 'vel.lectus@felis.net', 'CGE61ZDM9XE', 'Lamar', 'Knapp', 2, 6, '43701286', '+51-836-662-650', '+51-536-0802', '2018-03-24', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(23, 'aliquet.nec@Fuscediam.net', 'IAH36CVP4WU', 'Quincy', 'Dorsey', 2, 6, '78764157', '+51-990-788-382', '+51-705-6592', '2017-12-17', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(24, 'semper@venenatis.edu', 'AJE71FEO3NY', 'Geoffrey', 'Contreras', 1, 6, '86533099', '+51-847-131-900', '+51-516-4524', '2019-04-15', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(25, 'vitae.aliquam@molestieSedid.net', 'UXM46XNI0HJ', 'Renee', 'Singleton', 1, 2, '91975895', '+51-667-823-366', '+51-026-1758', '2019-06-14', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(26, 'eget.dictum@atauctorullamcorper.org', 'HMR35MJP9HL', 'Kevyn', 'Roth', 2, 3, '44656397', '+51-024-908-320', '+51-204-0167', '2019-04-02', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(27, 'non@Nunc.ca', 'LFC86HDF6LJ', 'Jin', 'Rivera', 2, 3, '48752154', '+51-171-034-930', '+51-322-1155', '2019-01-14', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(28, 'lacus.Mauris@sed.com', 'MUL47VOB5XJ', 'Mariko', 'Goff', 2, 6, '73369960', '+51-951-343-459', '+51-624-5979', '2019-05-17', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(29, 'Duis.mi@feugiatnon.com', 'LJF36HKB8YS', 'Chastity', 'Boyer', 1, 4, '92017233', '+51-239-301-546', '+51-705-9267', '2018-07-08', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(30, 'nec.urna.suscipit@tinciduntvehicula.ca', 'CYM76YGJ2RE', 'Sigourney', 'Barnes', 1, 1, '55401645', '+51-745-917-089', '+51-780-4706', '2018-08-21', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(31, 'non.arcu@loremfringilla.org', 'OZJ59YQI0UJ', 'Ira', 'Beasley', 2, 1, '56326109', '+51-943-313-549', '+51-982-0549', '2018-03-22', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(32, 'Suspendisse.aliquet.molestie@magnatellus.edu', 'UYO94MON2WX', 'Anthony', 'Ratliff', 1, 3, '50335653', '+51-482-976-340', '+51-075-8157', '2018-09-14', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(33, 'augue.malesuada.malesuada@loremloremluctus.co', 'JEJ84REM0GX', 'Sigourney', 'Boyer', 1, 1, '60663106', '+51-459-812-614', '+51-842-4488', '2018-02-12', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(34, 'quam@ridiculus.co.uk', 'IQY48BOP9YW', 'Stacy', 'Cortez', 1, 5, '75690933', '+51-172-419-990', '+51-014-9068', '2018-12-08', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(35, 'quam@nonsollicitudin.net', 'OXH72XTF8XH', 'Montana', 'Love', 2, 2, '71008852', '+51-987-142-192', '+51-869-9109', '2018-07-29', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(36, 'malesuada.ut.sem@laciniaSedcongue.edu', 'YOE07VMH4FE', 'Angelica', 'Rivas', 2, 6, '79209020', '+51-563-713-823', '+51-013-0666', '2018-05-02', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(37, 'sit@tellusjustosit.co.uk', 'LFZ38DLL7OR', 'Patrick', 'Ferguson', 1, 6, '62899610', '+51-730-123-512', '+51-672-5930', '2018-08-01', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(38, 'lorem.ipsum.sodales@Aenean.com', 'ILO68KLI6FZ', 'Jane', 'Daniels', 1, 5, '88445505', '+51-343-531-182', '+51-456-1231', '2019-05-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(39, 'dui.nec@dictum.net', 'UGK84RIQ0BO', 'Rigel', 'Larson', 2, 4, '53719269', '+51-502-721-818', '+51-028-1743', '2017-10-02', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(40, 'eget.mollis@vitae.edu', 'IQS21NVF2EP', 'Keaton', 'Solomon', 1, 6, '40311314', '+51-304-605-328', '+51-878-7610', '2018-04-08', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(41, 'mauris@rutrummagnaCras.net', 'UXP70OMS4RE', 'Kasper', 'Mooney', 2, 6, '43610818', '+51-949-836-819', '+51-305-1072', '2018-08-30', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(42, 'et.ipsum@infelisNulla.net', 'QTN25LIT9WJ', 'Rhea', 'Frazier', 1, 4, '76692135', '+51-474-125-554', '+51-470-1811', '2018-10-25', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(43, 'interdum@fringilla.edu', 'VFV73GZV9ZF', 'Xantha', 'King', 2, 5, '75189898', '+51-809-517-545', '+51-573-8248', '2019-04-19', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(44, 'euismod@egestas.co.uk', 'KGZ61XJR6CJ', 'Graiden', 'Acevedo', 1, 3, '42611985', '+51-777-120-355', '+51-969-5045', '2017-11-14', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(45, 'varius.orci.in@loremeu.edu', 'IOH66NHN5ZG', 'Judah', 'Maxwell', 1, 4, '48335540', '+51-704-543-971', '+51-355-4827', '2018-12-17', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(46, 'pede.ultrices@Quisqueimperdiet.org', 'TZN13COB4UE', 'Ariel', 'Pearson', 2, 2, '72660678', '+51-278-918-125', '+51-790-4373', '2018-09-22', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(47, 'eu.elit@famesac.ca', 'EVM60LKF3WN', 'Jaime', 'Lloyd', 1, 4, '97874339', '+51-242-835-727', '+51-645-4102', '2019-03-26', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(48, 'imperdiet@lectusante.com', 'RYG07MII7DS', 'Kato', 'Henry', 1, 5, '77189880', '+51-129-013-448', '+51-360-1120', '2017-08-13', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(49, 'Vivamus.nibh@odio.co.uk', 'SFN81MPA0XI', 'Rebecca', 'Dejesus', 2, 6, '68770623', '+51-994-046-131', '+51-389-7660', '2018-07-07', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(50, 'hendrerit.id.ante@Suspendisse.co.uk', 'ONT12MYJ3GY', 'Selma', 'Reese', 1, 1, '98570129', '+51-246-336-579', '+51-542-0756', '2018-12-15', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(51, 'justo@elitCurabitur.org', 'LAW99GBG5UC', 'Alexis', 'Taylor', 1, 6, '64105307', '+51-615-858-063', '+51-743-1443', '2018-11-29', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(52, 'nunc.sit@estarcuac.org', 'VWO49QXT2CH', 'Illana', 'Douglas', 2, 6, '74788536', '+51-515-342-102', '+51-950-9910', '2018-09-03', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(53, 'Nunc.laoreet.lectus@tellusPhaselluselit.ca', 'AES14NIO3LI', 'Katell', 'Patrick', 1, 4, '85951382', '+51-974-560-993', '+51-240-4015', '2018-09-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(54, 'Integer@tortorIntegeraliquam.ca', 'ERD18LPC3RS', 'Dylan', 'Black', 1, 6, '70323533', '+51-214-627-593', '+51-976-4401', '2017-08-15', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(55, 'Fusce.aliquet@at.edu', 'CDK17ZVE2WR', 'Mohammad', 'Blair', 2, 3, '43907201', '+51-522-117-789', '+51-861-7819', '2018-02-06', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(56, 'Suspendisse.tristique@Naminterdum.org', 'YXO40UIA6QG', 'Ivory', 'Horn', 1, 5, '53615107', '+51-000-193-137', '+51-795-7888', '2018-03-02', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(57, 'convallis.est@imperdietnonvestibulum.com', 'RXX42WBM9HN', 'Griffith', 'Rivera', 1, 3, '43144821', '+51-845-511-916', '+51-795-5203', '2018-12-28', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(58, 'sed.orci@tortorInteger.co.uk', 'ZEJ72KRJ0RP', 'Irene', 'Fowler', 2, 2, '96700588', '+51-736-376-773', '+51-205-7347', '2018-08-25', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(59, 'sollicitudin.a@Nunc.net', 'QTF24CQX2EG', 'Shana', 'Lowe', 1, 6, '88058345', '+51-074-876-551', '+51-348-2190', '2018-01-26', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(60, 'eros@tempusmauris.edu', 'FYI44IOE1SX', 'Mercedes', 'Crawford', 1, 5, '50166548', '+51-347-446-310', '+51-131-8339', '2018-10-20', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(61, 'mi.Aliquam@adipiscingelit.com', 'EPT69OBO4UD', 'Neve', 'Johnston', 1, 5, '59001725', '+51-756-033-965', '+51-917-3687', '2017-09-14', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(62, 'cursus@magnaSuspendisse.net', 'BWJ11FQY9AK', 'Cameran', 'Delacruz', 1, 3, '77696866', '+51-792-424-683', '+51-608-7937', '2018-02-14', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(63, 'Quisque.imperdiet@dignissimlacusAliquam.org', 'LPW66NUO7FT', 'Martin', 'Goodman', 2, 5, '97516973', '+51-691-782-093', '+51-399-1594', '2019-04-27', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(64, 'sit.amet.luctus@dui.co.uk', 'KLA41LCC8YJ', 'Lucian', 'Shepard', 2, 5, '54828500', '+51-126-868-483', '+51-320-9154', '2017-06-11', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(65, 'iaculis@sitametmetus.org', 'PHD11ABV8KP', 'Melvin', 'Lloyd', 2, 5, '88933924', '+51-195-435-661', '+51-798-2125', '2018-04-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(66, 'neque.Sed@SuspendisseeleifendCras.ca', 'HQL12ZIY8WD', 'Gannon', 'Smith', 1, 3, '74186621', '+51-765-625-735', '+51-840-4550', '2019-06-18', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(67, 'tempor.est.ac@ipsum.edu', 'YJO79PBO7TW', 'Aquila', 'Haney', 1, 2, '60824923', '+51-674-785-841', '+51-021-2778', '2019-04-16', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(68, 'eu.arcu.Morbi@Phasellusvitae.org', 'LID50HRK2UV', 'Sigourney', 'Oconnor', 1, 1, '99327563', '+51-833-222-168', '+51-248-7152', '2019-01-17', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(69, 'amet.diam.eu@mi.edu', 'WJE47LVH1WS', 'Martha', 'Martinez', 1, 2, '73619387', '+51-325-858-144', '+51-716-3319', '2017-11-25', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(70, 'Integer@Fuscedolor.edu', 'FPR74BQE6DG', 'Quinn', 'Rowland', 2, 2, '89738819', '+51-407-757-975', '+51-060-0852', '2017-07-20', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(71, 'Fusce@ornare.edu', 'OKJ63WTA5OE', 'Simone', 'Rocha', 2, 3, '59035211', '+51-321-345-795', '+51-864-1603', '2017-12-18', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(72, 'blandit.at@Aenean.ca', 'GJW04OIU6DB', 'Kelly', 'Lowe', 1, 6, '43274184', '+51-674-700-607', '+51-556-4902', '2017-07-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(73, 'Cum.sociis.natoque@tinciduntaliquamarcu.co.uk', 'RGN72OUR8LS', 'Dora', 'Mayer', 2, 3, '59226489', '+51-441-055-227', '+51-716-5873', '2019-01-31', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(74, 'ligula.Aenean@aarcuSed.com', 'PQU96YVQ5GP', 'Pamela', 'Guerrero', 1, 4, '99366993', '+51-238-542-578', '+51-418-9069', '2018-08-26', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(75, 'sagittis@Curabitur.com', 'CWC99RXD2DW', 'Xena', 'Miranda', 1, 5, '85894180', '+51-039-747-978', '+51-503-6908', '2018-11-30', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(76, 'habitant@egestas.edu', 'KGH82FTH1QM', 'Marcia', 'Meyer', 2, 5, '56175453', '+51-186-764-120', '+51-319-1167', '2019-05-27', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(77, 'nulla.ante.iaculis@elitAliquam.edu', 'KYS13VBO8SG', 'Calista', 'Bradford', 2, 4, '59125507', '+51-188-952-377', '+51-525-5689', '2019-03-02', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(78, 'Donec.tincidunt.Donec@cursus.org', 'NJW06FBH6VW', 'Sylvia', 'Ratliff', 1, 2, '55457114', '+51-524-621-819', '+51-527-8731', '2018-10-12', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(79, 'Nunc.commodo@estmaurisrhoncus.ca', 'BBS20OSQ0BA', 'Buffy', 'Gonzalez', 2, 1, '46680668', '+51-961-762-588', '+51-364-3626', '2018-12-07', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(80, 'Nunc@nunc.ca', 'OOH47BGH3QJ', 'Nigel', 'Mejia', 1, 6, '54429650', '+51-898-600-415', '+51-516-8277', '2018-12-30', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(81, 'mauris@ornarelibero.net', 'PLJ17BLT6GB', 'Noelani', 'Mccarthy', 2, 5, '67642166', '+51-685-700-929', '+51-931-5038', '2019-01-22', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(82, 'ac.ipsum@blandit.org', 'BUU13WID6VR', 'Cassidy', 'Mathis', 2, 1, '75657413', '+51-474-587-806', '+51-925-0817', '2019-02-19', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(83, 'ac.risus.Morbi@orciPhasellusdapibus.net', 'OYP77EBC0JE', 'Derek', 'Neal', 1, 1, '56053002', '+51-837-213-845', '+51-196-8773', '2017-07-19', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(84, 'a.auctor.non@semconsequatnec.ca', 'HJV83HWC7FR', 'Charissa', 'Wooten', 1, 1, '41586294', '+51-104-541-158', '+51-663-9984', '2018-04-29', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(85, 'Quisque@massaQuisqueporttitor.org', 'FGZ98LLC1JT', 'Xyla', 'Becker', 2, 3, '54369499', '+51-711-545-384', '+51-936-4855', '2018-05-18', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(86, 'congue.turpis@commodotincidunt.ca', 'COZ94OZS6AI', 'Emma', 'Garrison', 2, 5, '89533701', '+51-888-606-304', '+51-519-8255', '2018-02-03', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(87, 'sagittis.Duis@acmattis.com', 'ZWQ97HHA4AI', 'Patience', 'Martin', 2, 2, '85213336', '+51-779-342-626', '+51-384-7698', '2018-08-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(88, 'pede.Praesent@ridiculusmus.edu', 'PTL98LCH9VE', 'Anastasia', 'Hardy', 2, 2, '63684379', '+51-630-626-382', '+51-106-2454', '2018-01-27', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(89, 'facilisis.vitae@Aeneanegestas.org', 'TPL91DGY4RU', 'Gretchen', 'Mann', 1, 6, '64270886', '+51-293-906-995', '+51-812-7123', '2018-01-19', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(90, 'pede.Suspendisse.dui@eleifendnondapibus.co.uk', 'KSR04VJO3VS', 'Paula', 'Sexton', 2, 5, '58977501', '+51-031-765-420', '+51-676-7711', '2018-11-06', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(91, 'libero.Donec@semPellentesqueut.edu', 'ZTW05TPW9HP', 'Ora', 'Levine', 2, 3, '54437491', '+51-458-688-169', '+51-240-7263', '2018-07-11', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(92, 'mollis.vitae@sedest.co.uk', 'EWF12UUO2KG', 'Allegra', 'Soto', 1, 6, '77639255', '+51-832-172-239', '+51-962-2876', '2018-08-22', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(93, 'Donec.vitae.erat@sociis.co.uk', 'VMV26CBL4PP', 'Neil', 'Lester', 2, 3, '65970551', '+51-281-959-349', '+51-492-4852', '2017-08-05', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(94, 'ridiculus.mus@Nullaeget.net', 'YZB31DHJ4DK', 'Rhoda', 'Suarez', 2, 4, '57918060', '+51-974-213-771', '+51-001-2463', '2017-09-13', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(95, 'vitae.erat@sapiencursusin.com', 'EWR18PIV1DT', 'Yolanda', 'Huff', 2, 4, '96373472', '+51-501-938-849', '+51-472-3186', '2018-09-11', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(96, 'tellus@Donecelementum.edu', 'HQK69ZHQ7XU', 'Emmanuel', 'Jacobs', 2, 4, '73531662', '+51-099-012-515', '+51-267-5269', '2018-12-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(97, 'sit.amet.consectetuer@aliquameuaccumsan.com', 'LOM71RSB4AB', 'Marsden', 'Murray', 1, 4, '77923800', '+51-091-277-298', '+51-905-0413', '2019-02-08', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(98, 'nulla@diamluctus.ca', 'SKV62JFA1BT', 'Eaton', 'Curtis', 2, 6, '94514309', '+51-283-827-376', '+51-093-4929', '2019-03-18', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(99, 'convallis.est.vitae@enimNunc.com', 'ADE44APC8TI', 'Prescott', 'Castillo', 2, 2, '79961579', '+51-769-773-822', '+51-131-9312', '2017-11-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26'),
-(100, 'ultricies@Integeraliquam.ca', 'NCF87PSL5BA', 'Cora', 'Michael', 2, 3, '83043233', '+51-914-022-107', '+51-723-9134', '2018-01-23', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26');
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `categorias`
---
-ALTER TABLE `categorias`
-  ADD PRIMARY KEY (`id_cat_prod`);
-
---
--- Indices de la tabla `distritos`
---
-ALTER TABLE `distritos`
-  ADD PRIMARY KEY (`id_distrito`),
-  ADD UNIQUE KEY `id` (`id_distrito`);
-
---
--- Indices de la tabla `marcas`
---
-ALTER TABLE `marcas`
-  ADD PRIMARY KEY (`id_marca`);
-
---
--- Indices de la tabla `productos`
---
-ALTER TABLE `productos`
-  ADD PRIMARY KEY (`id_producto`),
-  ADD KEY `id_marca` (`id_marca`);
-
---
--- Indices de la tabla `provincias`
---
-ALTER TABLE `provincias`
-  ADD PRIMARY KEY (`id_provincia`),
-  ADD UNIQUE KEY `id` (`id_provincia`);
-
---
--- Indices de la tabla `regiones`
---
-ALTER TABLE `regiones`
-  ADD PRIMARY KEY (`id_region`),
-  ADD UNIQUE KEY `id` (`id_region`);
-
---
--- Indices de la tabla `sexo`
---
-ALTER TABLE `sexo`
-  ADD PRIMARY KEY (`id_sexo`);
-
---
--- Indices de la tabla `tipo_documentos`
---
-ALTER TABLE `tipo_documentos`
-  ADD PRIMARY KEY (`id_tipo_doc`);
-
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id_usuario`),
-  ADD UNIQUE KEY `email` (`email`,`nro_documento`),
-  ADD KEY `id_sexo` (`id_sexo`,`id_documento`,`id_region`,`id_provincia`,`id_distrito`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `categorias`
---
-ALTER TABLE `categorias`
-  MODIFY `id_cat_prod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT de la tabla `marcas`
---
-ALTER TABLE `marcas`
-  MODIFY `id_marca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `productos`
---
-ALTER TABLE `productos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
-
---
--- AUTO_INCREMENT de la tabla `sexo`
---
-ALTER TABLE `sexo`
-  MODIFY `id_sexo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de la tabla `tipo_documentos`
---
-ALTER TABLE `tipo_documentos`
-  MODIFY `id_tipo_doc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+INSERT INTO `usuarios` (`id_usuario`, `email`, `password`, `nombres`, `apellidos`, `id_sexo`, `id_documento`, `nro_documento`, `celular`, `telefono`, `fec_nac`, `id_region`, `id_provincia`, `id_distrito`, `created_at`, `updated_at`, `estado`, `deleted_at`) VALUES
+(1, 'commodo.at@ametnulla.net', 'WRD79JEB4ZR', 'Isaiah', 'Oneil', 1, 1, '94318859', '+51-663-123-676', '+51-899-9949', '1992-03-09', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 20:55:43', 0, '2018-06-12 20:02:42'),
+(4, 'nascetur.ridiculus@porttitor.ca', 'XAX57PHQ3FH', 'Giselle', 'Hyde', 1, 5, '48495508', '+51-057-568-778', '+51-176-7396', '2018-10-13', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 20:55:56', 0, '2018-06-12 20:04:34'),
+(5, 'metus@egetnisidictum.org', 'OJH69JOZ4MR', 'Camden', 'Greer', 2, 4, '89784442', '+51-019-424-384', '+51-858-0708', '2019-02-23', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 20:55:52', 0, '2018-06-12 20:06:29'),
+(6, 'elit.elit.fermentum@maurisaliquam.net', 'DBO25AZR0AI', 'Tamara', 'Prince', 1, 2, '89593996', '+51-980-072-688', '+51-337-6052', '2017-08-04', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 20:55:59', 0, '2018-06-12 20:14:40'),
+(7, 'amet.ultricies.sem@mauriselit.co.uk', 'MCY92ISH2RQ', 'Armando', 'Madden', 2, 3, '91718919', '+51-352-832-344', '+51-490-4667', '2018-04-22', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 20:56:02', 0, '2018-06-12 20:17:07'),
+(8, 'ipsum.Phasellus@Nuncsedorci.ca', 'NWX48OMA1JE', 'Jessamine', 'Francis', 1, 1, '90263529', '+51-924-910-781', '+51-220-3787', '2017-11-02', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(9, 'Nunc.commodo@malesuadaIntegerid.net', 'JOE60CLT0ID', 'Kelsey', 'Velasquez', 1, 6, '89793290', '+51-322-047-140', '+51-765-2452', '2017-08-29', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(10, 'Nulla@semperpretiumneque.org', 'LQV00OLA7SY', 'Dustin', 'Ewing', 2, 6, '64678970', '+51-990-884-817', '+51-080-3314', '2018-01-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(11, 'Vivamus.nibh@purusin.org', 'FUZ60OUT3YA', 'Shannon', 'Rollins', 2, 2, '46678148', '+51-418-980-954', '+51-460-5833', '2019-01-05', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(12, 'gravida.mauris@tincidunt.org', 'AVD27BMU8PB', 'Travis', 'Hamilton', 2, 2, '40761537', '+51-866-356-753', '+51-547-4695', '2018-02-04', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(13, 'nisi.sem@milorem.com', 'NRA43DND1UN', 'Elton', 'Woods', 1, 3, '72049399', '+51-507-786-514', '+51-799-4536', '2018-09-27', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(14, 'purus.mauris@egetipsumDonec.ca', 'CEZ95BWL3WQ', 'Kylan', 'Haley', 1, 2, '60024006', '+51-201-565-075', '+51-435-5044', '2019-01-18', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(15, 'vulputate@Donec.org', 'QHG45BBG8HP', 'Basil', 'Silva', 1, 2, '49361512', '+51-771-933-609', '+51-900-3546', '2017-06-23', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(16, 'ornare.lectus.ante@rutrum.ca', 'LCH91XHV0QY', 'Damon', 'Lancaster', 2, 5, '68913367', '+51-952-896-084', '+51-681-9740', '2018-10-05', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(17, 'vitae@a.co.uk', 'EUI39EWT1XT', 'Raya', 'Obrien', 1, 2, '71610345', '+51-941-498-564', '+51-314-4066', '2017-11-12', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(18, 'condimentum.Donec.at@vitaeodio.net', 'DZA05BOL8KH', 'Amir', 'Witt', 1, 1, '40792713', '+51-319-104-505', '+51-688-0176', '2018-03-08', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(19, 'ac@lacus.co.uk', 'FMH08ZCM6VG', 'Alexa', 'Golden', 2, 4, '51844119', '+51-017-152-423', '+51-612-3668', '2017-08-16', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(20, 'iaculis@porttitor.edu', 'SPB72LNV4PR', 'Kaye', 'Gray', 2, 5, '49224698', '+51-728-837-488', '+51-907-0540', '2018-09-03', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(21, 'pulvinar@vellectusCum.co.uk', 'VPO12PMA9HU', 'Sybil', 'Shaffer', 2, 2, '66576307', '+51-765-622-296', '+51-999-5976', '2019-06-28', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(22, 'vel.lectus@felis.net', 'CGE61ZDM9XE', 'Lamar', 'Knapp', 2, 6, '43701286', '+51-836-662-650', '+51-536-0802', '2018-03-24', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(23, 'aliquet.nec@Fuscediam.net', 'IAH36CVP4WU', 'Quincy', 'Dorsey', 2, 6, '78764157', '+51-990-788-382', '+51-705-6592', '2017-12-17', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(24, 'semper@venenatis.edu', 'AJE71FEO3NY', 'Geoffrey', 'Contreras', 1, 6, '86533099', '+51-847-131-900', '+51-516-4524', '2019-04-15', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(25, 'vitae.aliquam@molestieSedid.net', 'UXM46XNI0HJ', 'Renee', 'Singleton', 1, 2, '91975895', '+51-667-823-366', '+51-026-1758', '2019-06-14', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(26, 'eget.dictum@atauctorullamcorper.org', 'HMR35MJP9HL', 'Kevyn', 'Roth', 2, 3, '44656397', '+51-024-908-320', '+51-204-0167', '2019-04-02', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(27, 'non@Nunc.ca', 'LFC86HDF6LJ', 'Jin', 'Rivera', 2, 3, '48752154', '+51-171-034-930', '+51-322-1155', '2019-01-14', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(28, 'lacus.Mauris@sed.com', 'MUL47VOB5XJ', 'Mariko', 'Goff', 2, 6, '73369960', '+51-951-343-459', '+51-624-5979', '2019-05-17', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(29, 'Duis.mi@feugiatnon.com', 'LJF36HKB8YS', 'Chastity', 'Boyer', 1, 4, '92017233', '+51-239-301-546', '+51-705-9267', '2018-07-08', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(30, 'nec.urna.suscipit@tinciduntvehicula.ca', 'CYM76YGJ2RE', 'Sigourney', 'Barnes', 1, 1, '55401645', '+51-745-917-089', '+51-780-4706', '2018-08-21', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(31, 'non.arcu@loremfringilla.org', 'OZJ59YQI0UJ', 'Ira', 'Beasley', 2, 1, '56326109', '+51-943-313-549', '+51-982-0549', '2018-03-22', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(32, 'Suspendisse.aliquet.molestie@magnatellus.edu', 'UYO94MON2WX', 'Anthony', 'Ratliff', 1, 3, '50335653', '+51-482-976-340', '+51-075-8157', '2018-09-14', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(33, 'augue.malesuada.malesuada@loremloremluctus.co', 'JEJ84REM0GX', 'Sigourney', 'Boyer', 1, 1, '60663106', '+51-459-812-614', '+51-842-4488', '2018-02-12', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(34, 'quam@ridiculus.co.uk', 'IQY48BOP9YW', 'Stacy', 'Cortez', 1, 5, '75690933', '+51-172-419-990', '+51-014-9068', '2018-12-08', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(35, 'quam@nonsollicitudin.net', 'OXH72XTF8XH', 'Montana', 'Love', 2, 2, '71008852', '+51-987-142-192', '+51-869-9109', '2018-07-29', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(36, 'malesuada.ut.sem@laciniaSedcongue.edu', 'YOE07VMH4FE', 'Angelica', 'Rivas', 2, 6, '79209020', '+51-563-713-823', '+51-013-0666', '2018-05-02', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(37, 'sit@tellusjustosit.co.uk', 'LFZ38DLL7OR', 'Patrick', 'Ferguson', 1, 6, '62899610', '+51-730-123-512', '+51-672-5930', '2018-08-01', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(38, 'lorem.ipsum.sodales@Aenean.com', 'ILO68KLI6FZ', 'Jane', 'Daniels', 1, 5, '88445505', '+51-343-531-182', '+51-456-1231', '2019-05-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(39, 'dui.nec@dictum.net', 'UGK84RIQ0BO', 'Rigel', 'Larson', 2, 4, '53719269', '+51-502-721-818', '+51-028-1743', '2017-10-02', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(40, 'eget.mollis@vitae.edu', 'IQS21NVF2EP', 'Keaton', 'Solomon', 1, 6, '40311314', '+51-304-605-328', '+51-878-7610', '2018-04-08', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(41, 'mauris@rutrummagnaCras.net', 'UXP70OMS4RE', 'Kasper', 'Mooney', 2, 6, '43610818', '+51-949-836-819', '+51-305-1072', '2018-08-30', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(42, 'et.ipsum@infelisNulla.net', 'QTN25LIT9WJ', 'Rhea', 'Frazier', 1, 4, '76692135', '+51-474-125-554', '+51-470-1811', '2018-10-25', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(43, 'interdum@fringilla.edu', 'VFV73GZV9ZF', 'Xantha', 'King', 2, 5, '75189898', '+51-809-517-545', '+51-573-8248', '2019-04-19', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(44, 'euismod@egestas.co.uk', 'KGZ61XJR6CJ', 'Graiden', 'Acevedo', 1, 3, '42611985', '+51-777-120-355', '+51-969-5045', '2017-11-14', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(45, 'varius.orci.in@loremeu.edu', 'IOH66NHN5ZG', 'Judah', 'Maxwell', 1, 4, '48335540', '+51-704-543-971', '+51-355-4827', '2018-12-17', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(46, 'pede.ultrices@Quisqueimperdiet.org', 'TZN13COB4UE', 'Ariel', 'Pearson', 2, 2, '72660678', '+51-278-918-125', '+51-790-4373', '2018-09-22', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(47, 'eu.elit@famesac.ca', 'EVM60LKF3WN', 'Jaime', 'Lloyd', 1, 4, '97874339', '+51-242-835-727', '+51-645-4102', '2019-03-26', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(48, 'imperdiet@lectusante.com', 'RYG07MII7DS', 'Kato', 'Henry', 1, 5, '77189880', '+51-129-013-448', '+51-360-1120', '2017-08-13', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(49, 'Vivamus.nibh@odio.co.uk', 'SFN81MPA0XI', 'Rebecca', 'Dejesus', 2, 6, '68770623', '+51-994-046-131', '+51-389-7660', '2018-07-07', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(50, 'hendrerit.id.ante@Suspendisse.co.uk', 'ONT12MYJ3GY', 'Selma', 'Reese', 1, 1, '98570129', '+51-246-336-579', '+51-542-0756', '2018-12-15', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(51, 'justo@elitCurabitur.org', 'LAW99GBG5UC', 'Alexis', 'Taylor', 1, 6, '64105307', '+51-615-858-063', '+51-743-1443', '2018-11-29', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(52, 'nunc.sit@estarcuac.org', 'VWO49QXT2CH', 'Illana', 'Douglas', 2, 6, '74788536', '+51-515-342-102', '+51-950-9910', '2018-09-03', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(53, 'Nunc.laoreet.lectus@tellusPhaselluselit.ca', 'AES14NIO3LI', 'Katell', 'Patrick', 1, 4, '85951382', '+51-974-560-993', '+51-240-4015', '2018-09-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(54, 'Integer@tortorIntegeraliquam.ca', 'ERD18LPC3RS', 'Dylan', 'Black', 1, 6, '70323533', '+51-214-627-593', '+51-976-4401', '2017-08-15', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(55, 'Fusce.aliquet@at.edu', 'CDK17ZVE2WR', 'Mohammad', 'Blair', 2, 3, '43907201', '+51-522-117-789', '+51-861-7819', '2018-02-06', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(56, 'Suspendisse.tristique@Naminterdum.org', 'YXO40UIA6QG', 'Ivory', 'Horn', 1, 5, '53615107', '+51-000-193-137', '+51-795-7888', '2018-03-02', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(57, 'convallis.est@imperdietnonvestibulum.com', 'RXX42WBM9HN', 'Griffith', 'Rivera', 1, 3, '43144821', '+51-845-511-916', '+51-795-5203', '2018-12-28', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(58, 'sed.orci@tortorInteger.co.uk', 'ZEJ72KRJ0RP', 'Irene', 'Fowler', 2, 2, '96700588', '+51-736-376-773', '+51-205-7347', '2018-08-25', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(59, 'sollicitudin.a@Nunc.net', 'QTF24CQX2EG', 'Shana', 'Lowe', 1, 6, '88058345', '+51-074-876-551', '+51-348-2190', '2018-01-26', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(60, 'eros@tempusmauris.edu', 'FYI44IOE1SX', 'Mercedes', 'Crawford', 1, 5, '50166548', '+51-347-446-310', '+51-131-8339', '2018-10-20', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(61, 'mi.Aliquam@adipiscingelit.com', 'EPT69OBO4UD', 'Neve', 'Johnston', 1, 5, '59001725', '+51-756-033-965', '+51-917-3687', '2017-09-14', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(62, 'cursus@magnaSuspendisse.net', 'BWJ11FQY9AK', 'Cameran', 'Delacruz', 1, 3, '77696866', '+51-792-424-683', '+51-608-7937', '2018-02-14', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(63, 'Quisque.imperdiet@dignissimlacusAliquam.org', 'LPW66NUO7FT', 'Martin', 'Goodman', 2, 5, '97516973', '+51-691-782-093', '+51-399-1594', '2019-04-27', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(64, 'sit.amet.luctus@dui.co.uk', 'KLA41LCC8YJ', 'Lucian', 'Shepard', 2, 5, '54828500', '+51-126-868-483', '+51-320-9154', '2017-06-11', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(65, 'iaculis@sitametmetus.org', 'PHD11ABV8KP', 'Melvin', 'Lloyd', 2, 5, '88933924', '+51-195-435-661', '+51-798-2125', '2018-04-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(66, 'neque.Sed@SuspendisseeleifendCras.ca', 'HQL12ZIY8WD', 'Gannon', 'Smith', 1, 3, '74186621', '+51-765-625-735', '+51-840-4550', '2019-06-18', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(67, 'tempor.est.ac@ipsum.edu', 'YJO79PBO7TW', 'Aquila', 'Haney', 1, 2, '60824923', '+51-674-785-841', '+51-021-2778', '2019-04-16', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(68, 'eu.arcu.Morbi@Phasellusvitae.org', 'LID50HRK2UV', 'Sigourney', 'Oconnor', 1, 1, '99327563', '+51-833-222-168', '+51-248-7152', '2019-01-17', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(69, 'amet.diam.eu@mi.edu', 'WJE47LVH1WS', 'Martha', 'Martinez', 1, 2, '73619387', '+51-325-858-144', '+51-716-3319', '2017-11-25', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(70, 'Integer@Fuscedolor.edu', 'FPR74BQE6DG', 'Quinn', 'Rowland', 2, 2, '89738819', '+51-407-757-975', '+51-060-0852', '2017-07-20', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(71, 'Fusce@ornare.edu', 'OKJ63WTA5OE', 'Simone', 'Rocha', 2, 3, '59035211', '+51-321-345-795', '+51-864-1603', '2017-12-18', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(72, 'blandit.at@Aenean.ca', 'GJW04OIU6DB', 'Kelly', 'Lowe', 1, 6, '43274184', '+51-674-700-607', '+51-556-4902', '2017-07-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(73, 'Cum.sociis.natoque@tinciduntaliquamarcu.co.uk', 'RGN72OUR8LS', 'Dora', 'Mayer', 2, 3, '59226489', '+51-441-055-227', '+51-716-5873', '2019-01-31', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(74, 'ligula.Aenean@aarcuSed.com', 'PQU96YVQ5GP', 'Pamela', 'Guerrero', 1, 4, '99366993', '+51-238-542-578', '+51-418-9069', '2018-08-26', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(75, 'sagittis@Curabitur.com', 'CWC99RXD2DW', 'Xena', 'Miranda', 1, 5, '85894180', '+51-039-747-978', '+51-503-6908', '2018-11-30', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(76, 'habitant@egestas.edu', 'KGH82FTH1QM', 'Marcia', 'Meyer', 2, 5, '56175453', '+51-186-764-120', '+51-319-1167', '2019-05-27', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(77, 'nulla.ante.iaculis@elitAliquam.edu', 'KYS13VBO8SG', 'Calista', 'Bradford', 2, 4, '59125507', '+51-188-952-377', '+51-525-5689', '2019-03-02', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(78, 'Donec.tincidunt.Donec@cursus.org', 'NJW06FBH6VW', 'Sylvia', 'Ratliff', 1, 2, '55457114', '+51-524-621-819', '+51-527-8731', '2018-10-12', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(79, 'Nunc.commodo@estmaurisrhoncus.ca', 'BBS20OSQ0BA', 'Buffy', 'Gonzalez', 2, 1, '46680668', '+51-961-762-588', '+51-364-3626', '2018-12-07', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(80, 'Nunc@nunc.ca', 'OOH47BGH3QJ', 'Nigel', 'Mejia', 1, 6, '54429650', '+51-898-600-415', '+51-516-8277', '2018-12-30', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 23:53:23', 1, '2018-06-12 23:53:23'),
+(81, 'mauris@ornarelibero.net', 'PLJ17BLT6GB', 'Noelani', 'Mccarthy', 2, 5, '67642166', '+51-685-700-929', '+51-931-5038', '2019-01-22', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(82, 'ac.ipsum@blandit.org', 'BUU13WID6VR', 'Cassidy', 'Mathis', 2, 1, '75657413', '+51-474-587-806', '+51-925-0817', '2019-02-19', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(83, 'ac.risus.Morbi@orciPhasellusdapibus.net', 'OYP77EBC0JE', 'Derek', 'Neal', 1, 1, '56053002', '+51-837-213-845', '+51-196-8773', '2017-07-19', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(84, 'a.auctor.non@semconsequatnec.ca', 'HJV83HWC7FR', 'Charissa', 'Wooten', 1, 1, '41586294', '+51-104-541-158', '+51-663-9984', '2018-04-29', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(85, 'Quisque@massaQuisqueporttitor.org', 'FGZ98LLC1JT', 'Xyla', 'Becker', 2, 3, '54369499', '+51-711-545-384', '+51-936-4855', '2018-05-18', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(86, 'congue.turpis@commodotincidunt.ca', 'COZ94OZS6AI', 'Emma', 'Garrison', 2, 5, '89533701', '+51-888-606-304', '+51-519-8255', '2018-02-03', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(87, 'sagittis.Duis@acmattis.com', 'ZWQ97HHA4AI', 'Patience', 'Martin', 2, 2, '85213336', '+51-779-342-626', '+51-384-7698', '2018-08-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(88, 'pede.Praesent@ridiculusmus.edu', 'PTL98LCH9VE', 'Anastasia', 'Hardy', 2, 2, '63684379', '+51-630-626-382', '+51-106-2454', '2018-01-27', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(89, 'facilisis.vitae@Aeneanegestas.org', 'TPL91DGY4RU', 'Gretchen', 'Mann', 1, 6, '64270886', '+51-293-906-995', '+51-812-7123', '2018-01-19', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(90, 'pede.Suspendisse.dui@eleifendnondapibus.co.uk', 'KSR04VJO3VS', 'Paula', 'Sexton', 2, 5, '58977501', '+51-031-765-420', '+51-676-7711', '2018-11-06', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(91, 'libero.Donec@semPellentesqueut.edu', 'ZTW05TPW9HP', 'Ora', 'Levine', 2, 3, '54437491', '+51-458-688-169', '+51-240-7263', '2018-07-11', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(92, 'mollis.vitae@sedest.co.uk', 'EWF12UUO2KG', 'Allegra', 'Soto', 1, 6, '77639255', '+51-832-172-239', '+51-962-2876', '2018-08-22', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(93, 'Donec.vitae.erat@sociis.co.uk', 'VMV26CBL4PP', 'Neil', 'Lester', 2, 3, '65970551', '+51-281-959-349', '+51-492-4852', '2017-08-05', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(94, 'ridiculus.mus@Nullaeget.net', 'YZB31DHJ4DK', 'Rhoda', 'Suarez', 2, 4, '57918060', '+51-974-213-771', '+51-001-2463', '2017-09-13', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(95, 'vitae.erat@sapiencursusin.com', 'EWR18PIV1DT', 'Yolanda', 'Huff', 2, 4, '96373472', '+51-501-938-849', '+51-472-3186', '2018-09-11', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(96, 'tellus@Donecelementum.edu', 'HQK69ZHQ7XU', 'Emmanuel', 'Jacobs', 2, 4, '73531662', '+51-099-012-515', '+51-267-5269', '2018-12-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(97, 'sit.amet.consectetuer@aliquameuaccumsan.com', 'LOM71RSB4AB', 'Marsden', 'Murray', 1, 4, '77923800', '+51-091-277-298', '+51-905-0413', '2019-02-08', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(98, 'nulla@diamluctus.ca', 'SKV62JFA1BT', 'Eaton', 'Curtis', 2, 6, '94514309', '+51-283-827-376', '+51-093-4929', '2019-03-18', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(99, 'convallis.est.vitae@enimNunc.com', 'ADE44APC8TI', 'Prescott', 'Castillo', 2, 2, '79961579', '+51-769-773-822', '+51-131-9312', '2017-11-10', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(100, 'ultricies@Integeraliquam.ca', 'NCF87PSL5BA', 'Cora', 'Michael', 2, 3, '83043233', '+51-914-022-107', '+51-723-9134', '2018-01-23', 150000, 150100, 150105, '2018-06-12 06:24:26', '2018-06-12 06:24:26', 0, '2018-06-12 19:54:05'),
+(101, 'bryan@live.com', '123', 'wii', 'wii', 1, 1, '48989739', '+51-914-022-107', '+51-914-022-107', '2018-06-01', 150000, 150100, 150105, '2018-06-12 21:32:49', '2018-06-12 22:51:21', 1, '2018-06-12 22:51:21'),
+(104, 'bryan.riv09@live.com', 'sensacion123', 'Neill Bryan', 'Rivera Livia', 1, 1, '47303063', '992790011', '2400260', '1992-03-09', 150000, 150100, 150120, '2018-06-13 01:11:06', '2018-06-13 01:11:06', 0, '2018-06-13 01:11:06'),
+(105, 'betty@live.com', '5646', 'Betty', 'Livia', 1, 1, '4898989', '24', '2400260', '1829-02-09', 150000, 150100, 150131, '2018-06-13 01:12:45', '2018-06-13 01:12:45', 0, '2018-06-13 01:12:45');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
