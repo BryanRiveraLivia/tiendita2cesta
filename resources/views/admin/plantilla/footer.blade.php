@@ -7,6 +7,7 @@
     menuHeader();
     $("#id_provincia").chained("#id_region");
     $("#id_distrito").chained("#id_provincia");
+    verDetalle();
   });
 
   function scltEnlazados()
@@ -16,19 +17,19 @@
 
   function verDetalle()
   {
-    $(document).on('click','.VerUsuario',function(){
-        var url = "usuarios/show";
-        var tour_id= $(this).val();
-        $.get(url + '/' + tour_id, function (data) {
-            //success data
-            console.log(data);
-            $('#tour_id').val(data.id);
-            $('#name').val(data.name);
-            $('#details').val(data.details);
-            $('#btn-save').val("update");
-            $('#myModal').modal('show');
-        }) 
-    });
+   $( ".DetalleUsuario").click(function() {
+      var id = $(this).attr("data-id");
+      var nombres = $(this).attr("data-nombres");
+      var apellidos = $(this).attr("data-apellidos");
+      var email = $(this).attr("data-email");
+      var id_documento = $(this).attr("data-id_documento");
+
+      $('#DetalleUsuario .modal-header h1').text(nombres+' '+apellidos);
+      $('#DetalleUsuario .modal-body input[name="nombres"]').val(nombres);
+      $('#DetalleUsuario .modal-body input[name="apellidos"]').val(apellidos);
+      $('#DetalleUsuario .modal-body input[name="email"]').val(email);
+      $('#DetalleUsuario .modal-body select[name="id_documento"]').val(id_documento);
+    })
   }
 
   function menuHeader()

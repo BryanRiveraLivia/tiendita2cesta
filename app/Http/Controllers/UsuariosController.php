@@ -16,7 +16,7 @@ class UsuariosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id="")
     {
         
         $documentos = $this->obtenerTipoDocumento();
@@ -91,9 +91,24 @@ class UsuariosController extends Controller
      * @param  \App\Usuarios  $usuarios
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
-        $detalle_usuario = Usuarios::find($request->id);
+        $documentos = $this->obtenerTipoDocumento();
+        $sexos = $this->obtenerSexos();
+        $regiones = $this->obtenerRegiones();
+        $provincias = $this->obtenerProvincias();
+        $distritos = $this->obtenerDistritos();
+        $usuarios = DB::table('usuarios')
+        ->join('sexo','sexo.id_sexo','=','usuarios.id_sexo')
+        ->join('tipo_documentos','tipo_documentos.id_tipo_doc','=','usuarios.id_documento')
+        ->join('regiones','regiones.id_region','=','usuarios.id_region')
+        ->join('provincias','provincias.id_provincia','=','usuarios.id_provincia')
+        ->join('distritos','distritos.id_distrito','=','usuarios.id_distrito')
+        ->select('usuarios.id_usuario','usuarios.email','usuarios.nombres','usuarios.apellidos','usuarios.fec_nac','sexo.sexo','tipo_documentos.nom_corto as dni_doc','usuarios.nro_documento','usuarios.celular','usuarios.telefono','usuarios.created_at','regiones.name as region','provincias.name as provincia','distritos.name as distrito')
+        ->where('usuarios.id_usuario','=',$id)
+        ->first();
+        return view('admin.usuarios.show', ['usuarios' => $usuarios,'documentos' => $documentos,'sexos' => $sexos,'regiones' => $regiones, 'provincias' => $provincias, 'distritos' => $distritos]); 
+
     }
 
     /**

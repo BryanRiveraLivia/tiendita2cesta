@@ -13,5 +13,6 @@
 
 Route::get('/', 'UsuariosController@index');
 Route::get('/usuarios', 'UsuariosController@index');
+Route::get('/usuarios/show/{id}', 'UsuariosController@show');
 Route::put('/usuarios/eliminar', 'UsuariosController@destroy');
 Route::post('/usuarios/crear','UsuariosController@create');
